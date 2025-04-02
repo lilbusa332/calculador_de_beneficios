@@ -17,17 +17,17 @@ Manual de Instalação
 🔧 Configuração
 </h3>
 <pre style="background-color: #f6f8fa; padding: 12px; border-radius: 6px; font-size: 13px; line-height: 1.45; overflow-x: auto; margin-bottom: 16px;">
-<h4> Clonar repositório</h4>
+<h3> Clonar repositório</h3>
 </code>git clone https://github.com/AntDavid/calculador_de_beneficios.git</code>
 
-<h4>Criar ambiente virtual</h4>
+<h3>Criar ambiente virtual</h3>
 <code>python -m venv venv</code>
 
-<h4>Ativar ambiente:</h4>
+<h3>Ativar ambiente:</h3>
 <code>Windows: venv\Scripts\activate
 <code>Linux/Mac: source venv/bin/activate</code>
 
-<h4>Instalar dependências</h4>
+<h3>Instalar dependências</h3>
 <code>pip install -r requirements.txt</code>
 </pre>
 
@@ -35,8 +35,8 @@ Manual de Instalação
 ⚙️ Configuração do Ambiente
 </h3>
 <pre style="background-color: #f6f8fa; padding: 12px; border-radius: 6px; font-size: 13px; line-height: 1.45; overflow-x: auto; margin-bottom: 16px;">
-<code># Criar arquivo .env
-echo "SECRET_KEY=sua_chave" > .env
+<h3># Criar arquivo .env</h3>
+<code>echo "SECRET_KEY=sua_chave" > .env
 echo "DATABASE_URL=sqlite:///calculadora_fake.db" >> .env
 echo "DEFAULT_EMAIL_PROVIDER=gmail" >> .env
 echo "GMAIL_EMAIL=seu_email@gmail.com" >> .env
