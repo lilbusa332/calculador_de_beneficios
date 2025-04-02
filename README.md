@@ -17,18 +17,18 @@ Manual de Instalação
 🔧 Configuração
 </h3>
 <pre style="background-color: #f6f8fa; padding: 12px; border-radius: 6px; font-size: 13px; line-height: 1.45; overflow-x: auto; margin-bottom: 16px;">
-<code> Clonar repositório
-git clone https://github.com/AntDavid/calculador_de_beneficios.git
+<h4> Clonar repositório</h4>
+</code>git clone https://github.com/AntDavid/calculador_de_beneficios.git</code>
 
-### Criar ambiente virtual
-python -m venv venv
+<h4>Criar ambiente virtual</h4>
+<code>python -m venv venv</code>
 
-### Ativar ambiente:
-### Windows: venv\Scripts\activate
-### Linux/Mac: source venv/bin/activate
+<h4>Ativar ambiente:</h4>
+<code>Windows: venv\Scripts\activate
+<code>Linux/Mac: source venv/bin/activate</code>
 
-### Instalar dependências
-pip install -r requirements.txt</code>
+<h4>Instalar dependências</h4>
+<code>pip install -r requirements.txt</code>
 </pre>
 
 <h3 style="font-size: 16px; color: #0366d6; margin-top: 16px; margin-bottom: 8px; font-weight: 600;">
