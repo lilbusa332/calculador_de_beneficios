@@ -10,16 +10,15 @@ Manual de Instalação
 <ul style="margin-left: 20px; margin-bottom: 16px;">
   <li style="margin-bottom: 4px;">Python 3.8+</li>
   <li style="margin-bottom: 4px;">Pip</li>
-  <li style="margin-bottom: 4px;">Git (opcional)</li>
+  <li style="margin-bottom: 4px;">Git</li>
 </ul>
 
 <h3 style="font-size: 16px; color: #0366d6; margin-top: 16px; margin-bottom: 8px; font-weight: 600;">
 🔧 Configuração
 </h3>
 <pre style="background-color: #f6f8fa; padding: 12px; border-radius: 6px; font-size: 13px; line-height: 1.45; overflow-x: auto; margin-bottom: 16px;">
-<code># Clonar repositório (opcional)
+<code> Clonar repositório
 git clone https://github.com/AntDavid/calculador_de_beneficios.git
-cd calculadora-fake
 
 ### Criar ambiente virtual
 python -m venv venv
