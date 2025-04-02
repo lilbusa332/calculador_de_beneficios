@@ -70,3 +70,5 @@ static/pdfs/*
 *.bak
 
 venv/
+
+tests.py
