@@ -3,7 +3,7 @@ Flask-SQLAlchemy==3.0.3
 Flask-Login==0.6.2
 Flask-Mail==0.9.1
 reportlab==4.0.4
-fpdf2==2.7.4s
+fpdf2==2.7.4
 python-dotenv==1.0.0
 email-validator==2.0.0.post2
 werkzeug==2.3.7
