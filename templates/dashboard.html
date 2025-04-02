@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard-container">
+    <header>
+        <h1>Olá, {{ user.nome }}!</h1>
+        <div>
+            <span class="email-status {{ 'verified' if user.email_verified else 'unverified' }}">
+                {{ 'Email verificado' if user.email_verified else 'Email não verificado' }}
+            </span>
+            <a href="{{ url_for('logout') }}" class="logout-btn">Sair</a>
+        </div>
+    </header>
+    
+    <div class="user-info">
+        <h2>Seus Dados Cadastrais</h2>
+        <div class="info-grid">
+            <div><strong>CPF:</strong> {{ user.cpf }}</div>
+            <div><strong>Email:</strong> {{ user.email }}</div>
+            <div><strong>Data Nasc.:</strong> {{ user.data_nascimento }}</div>
+            <div><strong>Telefone:</strong> {{ user.telefone or 'Não informado' }}</div>
+            <div><strong>Endereço:</strong> {{ user.endereco or 'Não informado' }}</div>
+            <div><strong>Cidade/UF:</strong> {{ user.cidade or '' }} {{ '/' + user.estado if user.estado else '' }}</div>
+            <div><strong>CEP:</strong> {{ user.cep or 'Não informado' }}</div>
+        </div>
+    </div>
+    
+    <div class="beneficio-form">
+        <h2>Calcular Benefício</h2>
+        <form id="calculoForm">
+            <div class="form-group">
+                <label for="tipo_beneficio">Tipo de Benefício:</label>
+                <select id="tipo_beneficio" name="tipo_beneficio" required>
+                    <option value="bolsa_familia">Bolsa Família</option>
+                    <option value="auxilio_emergencial">Auxílio Emergencial</option>
+                    <option value="outros">Outros</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="renda">Renda Mensal (R$):</label>
+                <input type="number" id="renda" name="renda" step="0.01" min="0" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="dependentes">Número de Dependentes:</label>
+                <input type="number" id="dependentes" name="dependentes" min="0" required>
+            </div>
+            
+            <button type="submit" class="btn">Calcular</button>
+        </form>
+        
+        <div id="resultadoContainer" class="hidden">
+            <h3>Resultado</h3>
+            <div id="resultadoValor"></div>
+            <a id="pdfLink" href="#" target="_blank" class="btn">Baixar PDF</a>
+        </div>
+    </div>
+    
+    <div class="historico">
+        <h2>Histórico de Cálculos</h2>
+        {% if calculos.items %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Tipo</th>
+                        <th>Valor</th>
+                        <th>PDF</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for calculo in calculos.items %}
+                    <tr>
+                        <td>{{ calculo.data_calculo.strftime('%d/%m/%Y %H:%M') }}</td>
+                        <td>
+                            {% if calculo.tipo_beneficio == 'bolsa_familia' %}
+                                Bolsa Família
+                            {% elif calculo.tipo_beneficio == 'auxilio_emergencial' %}
+                                Auxílio Emergencial
+                            {% else %}
+                                Outros
+                            {% endif %}
+                        </td>
+                        <td>R$ {{ "%.2f"|format(calculo.valor_beneficio) }}</td>
+                        <td>
+                            <a href="{{ url_for('download_pdf', filename=calculo.pdf_path) }}" target="_blank" class="btn">
+                                Baixar PDF
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+            <div class="pagination">
+                {% if calculos.has_prev %}
+                    <a href="{{ url_for('dashboard', page=calculos.prev_num) }}">&laquo; Anterior</a>
+                {% endif %}
+                
+                {% for page_num in calculos.iter_pages() %}
+                    {% if page_num %}
+                        {% if calculos.page == page_num %}
+                            <a href="{{ url_for('dashboard', page=page_num) }}" class="active">{{ page_num }}</a>
+                        {% else %}
+                            <a href="{{ url_for('dashboard', page=page_num) }}">{{ page_num }}</a>
+                        {% endif %}
+                    {% else %}
+                        <span class="ellipsis">...</span>
+                    {% endif %}
+                {% endfor %}
+                
+                {% if calculos.has_next %}
+                    <a href="{{ url_for('dashboard', page=calculos.next_num) }}">Próxima &raquo;</a>
+                {% endif %}
+            </div>
+        {% else %}
+            <p>Nenhum cálculo realizado ainda.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
