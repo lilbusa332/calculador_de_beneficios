@@ -18,7 +18,7 @@ Manual de Instalação
 </h3>
 <pre style="background-color: #f6f8fa; padding: 12px; border-radius: 6px; font-size: 13px; line-height: 1.45; overflow-x: auto; margin-bottom: 16px;">
 <code># Clonar repositório (opcional)
-git clone https://github.com/seu-usuario/calculadora-fake.git
+git clone https://github.com/AntDavid/calculador_de_beneficios.git
 cd calculadora-fake
 
 ### Criar ambiente virtual
