@@ -69,3 +69,4 @@ static/pdfs/*
 *.tmp
 *.bak
 
+venv/
