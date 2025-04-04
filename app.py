@@ -12,18 +12,19 @@ from sqlalchemy import or_
 import uuid
 from dotenv import load_dotenv
 
+# Load environment variables
 try:
     load_dotenv(encoding='utf-8')
 except UnicodeDecodeError:
     try:
         load_dotenv(encoding='utf-8-sig')
     except:
-        load_dotenv(encoding='latin-1') 
-
+        load_dotenv(encoding='latin-1')
 
 app = Flask(__name__)
 app.config.from_object(Config)
 
+# Initialize extensions
 db.init_app(app)
 mail.init_app(app)
 
@@ -35,7 +36,12 @@ login_manager.init_app(app)
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-# Rotas de Autenticação
+# Root route - redirects to auth
+@app.route('/')
+def index():
+    return redirect(url_for('auth'))
+
+# Authentication routes
 @app.route('/auth', methods=['GET', 'POST'])
 def auth():
     if current_user.is_authenticated:
@@ -52,20 +58,28 @@ def auth():
     return render_template('auth.html')
 
 def handle_signup():
-    cpf = request.form.get('cpf').replace('.', '').replace('-', '')
-    nome = request.form.get('nome')
-    email = request.form.get('email').lower()
-    password = request.form.get('password')
-    data_nascimento = request.form.get('data_nascimento')
-    telefone = request.form.get('telefone')
-    cep = request.form.get('cep')
-    endereco = request.form.get('endereco')
-    cidade = request.form.get('cidade')
-    estado = request.form.get('estado')
+    cpf = request.form.get('cpf', '').replace('.', '').replace('-', '')
+    nome = request.form.get('nome', '')
+    email = request.form.get('email', '').lower()
+    password = request.form.get('password', '')
+    data_nascimento_str = request.form.get('data_nascimento', '')
+    telefone = request.form.get('telefone', '')
+    cep = request.form.get('cep', '')
+    endereco = request.form.get('endereco', '')
+    cidade = request.form.get('cidade', '')
+    estado = request.form.get('estado', '')
     
     if User.query.filter(or_(User.email == email, User.cpf == cpf)).first():
         flash('Email ou CPF já cadastrado', 'error')
         return redirect(url_for('auth'))
+    
+    data_nascimento = None
+    if data_nascimento_str:
+        try:
+            data_nascimento = datetime.strptime(data_nascimento_str, '%Y-%m-%d').date()
+        except ValueError:
+            flash('Formato de data inválido. Use YYYY-MM-DD', 'error')
+            return redirect(url_for('auth'))
     
     new_user = User(
         cpf=cpf,
@@ -77,8 +91,10 @@ def handle_signup():
         cep=cep,
         endereco=endereco,
         cidade=cidade,
-        estado=estado
+        estado=estado,
+        email_verified=True
     )
+    
     user_data = {
         'nome': new_user.nome,
         'email': new_user.email,
@@ -90,8 +106,6 @@ def handle_signup():
         'cidade': new_user.cidade,
         'estado': new_user.estado,
         'data_cadastro': datetime.utcnow().isoformat()
-        
-
     }
     
     db.session.add(new_user)
@@ -99,13 +113,12 @@ def handle_signup():
 
     salvar_dados_json(user_data, 'usuario')
     
-   # email_sender.send_confirmation_email(new_user)
-    flash('Cadastro realizado! Verifique seu email para confirmar sua conta.', 'success')
+    flash('Cadastro realizado com sucesso!', 'success')
     return redirect(url_for('auth'))
 
 def handle_login():
-    email = request.form.get('email').lower()
-    password = request.form.get('password')
+    email = request.form.get('email', '').lower()
+    password = request.form.get('password', '')
     remember = 'remember' in request.form
     
     user = User.query.filter_by(email=email).first()
@@ -114,15 +127,11 @@ def handle_login():
         flash('Credenciais inválidas', 'error')
         return redirect(url_for('auth'))
     
-    if not user.email_verified:
-        flash('Por favor, verifique seu email antes de fazer login', 'warning')
-        return redirect(url_for('auth'))
-    
     login_user(user, remember=remember)
     return redirect(url_for('dashboard'))
 
 def handle_forgot_password():
-    email = request.form.get('email').lower()
+    email = request.form.get('email', '').lower()
     user = User.query.filter_by(email=email).first()
     
     if user:
@@ -131,11 +140,53 @@ def handle_forgot_password():
     flash('Se o email estiver cadastrado, você receberá instruções para redefinir sua senha', 'info')
     return redirect(url_for('auth'))
 
+# JSON data saving function
+def salvar_dados_json(dados, nome, arquivo='dados.json'):
+    try:
+        if hasattr(dados, '__table__'):
+            dados = {col.name: getattr(dados, col.name) for col in dados.__table__.columns}
+            dados['data_cadastro'] = datetime.utcnow().isoformat()
 
+        registro = {
+            'tipo_registro': nome,
+            'data_registro': datetime.utcnow().isoformat(),
+            'dados': {
+                'nome': dados.get('nome'),
+                'email': dados.get('email'),
+                'data_nascimento': dados.get('data_nascimento'),
+                'telefone': dados.get('telefone'),
+                'cep': dados.get('cep'),
+                'cidade': dados.get('cidade'),
+                'estado': dados.get('estado')
+            }
+        }
+
+        existing_data = []
+        if os.path.exists(arquivo):
+            try:
+                with open(arquivo, 'r', encoding='utf-8') as f:
+                    existing_data = json.load(f)
+            except json.JSONDecodeError:
+                existing_data = []
+
+        existing_data.append(registro)
+
+        with open(arquivo, 'w', encoding='utf-8') as f:
+            json.dump(existing_data, f, ensure_ascii=False, indent=4)
+            
+        print(f'Registro de {nome} salvo em {arquivo}')
+    except Exception as e:
+        print(f'Erro ao salvar dados: {str(e)}')
+
+        if app.debug:
+            import traceback
+            traceback.print_exc()
+
+# Other routes
 @app.context_processor
 def inject_now():
     return {'now': datetime.utcnow}
-# Rotas de Confirmação de Email e Redefinição de Senha
+
 @app.route('/confirmar-email/<token>')
 def confirm_email(token):
     token_record = Token.query.filter_by(token=token, used=False).first()
@@ -178,7 +229,6 @@ def reset_password(token):
     
     return render_template('reset_password.html', token=token)
 
-# Rotas do Dashboard
 @app.route('/dashboard')
 @login_required
 def dashboard():
@@ -198,13 +248,10 @@ def calcular_beneficio():
         dependentes = int(data['dependentes'])
         tipo_beneficio = data['tipo_beneficio']
         
-        # Algoritmo de cálculo melhorado
         valor_beneficio = calcular_valor_beneficio(renda, dependentes, tipo_beneficio)
         
-        # Salvar cálculo
         novo_calculo = save_calculo(renda, dependentes, tipo_beneficio, valor_beneficio)
         
-        # Gerar PDF
         pdf_filename = generate_pdf(novo_calculo, renda, dependentes)
         
         return jsonify({
@@ -218,7 +265,6 @@ def calcular_beneficio():
         return jsonify({'success': False, 'message': str(e)}), 400
 
 def calcular_valor_beneficio(renda, dependentes, tipo_beneficio):
-    # Algoritmo mais complexo e realista
     if tipo_beneficio == 'bolsa_familia':
         if renda <= 89 * dependentes + 178:
             return 600 + (150 * dependentes)
@@ -228,7 +274,7 @@ def calcular_valor_beneficio(renda, dependentes, tipo_beneficio):
             return 200 + (50 * dependentes)
     elif tipo_beneficio == 'auxilio_emergencial':
         return min(600 * (1 + dependentes * 0.2), 1200)
-    else:  # Benefício genérico
+    else:
         base = max(1000 - (renda * 0.2), 300)
         return base + (200 * dependentes)
 
@@ -269,7 +315,6 @@ def generate_pdf(calculo, renda, dependentes):
     db.session.commit()
     return pdf_filename
 
-# Outras rotas
 @app.route('/download-pdf/<filename>')
 @login_required
 def download_pdf(filename):
@@ -285,47 +330,3 @@ if __name__ == '__main__':
     with app.app_context():
         db.create_all()
     app.run(debug=True)
-
-#salvar dados num arquivo json
-def salvar_dados_json(dados, nome, arquivo='dados.json'):
-    try:
-        if hasattr(dados, '__table__'):
-            dados = {col.name: getattr(dados, col.name) for col in dados.__table__.columns}
-            dados['data_cadastro'] = datetime.utcnow().isoformat()
-
-        registro = {
-            'tipo_registro': nome,
-            'data_registro': datetime.utcnow().isoformat(),
-            'dados': {
-                'nome': dados.get('nome'),
-                'email': dados.get('email'),
-                'data_nascimento': dados.get('data_nascimento'),
-                'telefone': dados.get('telefone'),
-                'cep': dados.get('cep'),
-                'cidade': dados.get('cidade'),
-                'estado': dados.get('estado')
-            }
-        }
-
-
-        existing_data = []
-        if os.path.exists(arquivo):
-            try:
-                with open(arquivo, 'r', encoding='utf-8') as f:
-                    existing_data = json.load(f)
-            except json.JSONDecodeError:
-                existing_data = []
-
-        existing_data.append(registro)
-
-
-        with open(arquivo, 'w', encoding='utf-8') as f:
-            json.dump(existing_data, f, ensure_ascii=False, indent=4)
-            
-        print(f'Registro de {nome} salvo em {arquivo}')
-    except Exception as e:
-        print(f'Erro ao salvar dados: {str(e)}')
-
-        if app.debug:
-            import traceback
-            traceback.print_exc()
