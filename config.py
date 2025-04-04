@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(encoding='UTF-8')
 
 class Config:
     SECRET_KEY = os.getenv('SECRET_KEY', 'sua_chave_secreta_muito_segura_aqui')
@@ -9,7 +9,7 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     UPLOAD_FOLDER = 'static/pdfs'
     ITEMS_PER_PAGE = 5
-    TOKEN_EXPIRATION = int(os.getenv('TOKEN_EXPIRATION', 3600))  # 1 hora
+    TOKEN_EXPIRATION = int(os.getenv('TOKEN_EXPIRATION', 3600))  # 1 horaz
     
     # Configurações de e-mail dinâmicas
     EMAIL_PROVIDERS = {

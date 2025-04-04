@@ -10,6 +10,16 @@ from email_service import mail, email_sender
 from config import Config
 from sqlalchemy import or_
 import uuid
+from dotenv import load_dotenv
+
+try:
+    load_dotenv(encoding='utf-8')
+except UnicodeDecodeError:
+    try:
+        load_dotenv(encoding='utf-8-sig')
+    except:
+        load_dotenv(encoding='latin-1') 
+
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -69,9 +79,25 @@ def handle_signup():
         cidade=cidade,
         estado=estado
     )
+    user_data = {
+        'nome': new_user.nome,
+        'email': new_user.email,
+        'cpf': new_user.cpf,
+        'data_nascimento': new_user.data_nascimento.isoformat() if new_user.data_nascimento else None,
+        'telefone': new_user.telefone,
+        'cep': new_user.cep,
+        'endereco': new_user.endereco,
+        'cidade': new_user.cidade,
+        'estado': new_user.estado,
+        'data_cadastro': datetime.utcnow().isoformat()
+        
+
+    }
     
     db.session.add(new_user)
     db.session.commit()
+
+    salvar_dados_json(user_data, 'usuario')
     
    # email_sender.send_confirmation_email(new_user)
     flash('Cadastro realizado! Verifique seu email para confirmar sua conta.', 'success')
@@ -88,7 +114,7 @@ def handle_login():
         flash('Credenciais inválidas', 'error')
         return redirect(url_for('auth'))
     
-    if  user.email_verified:
+    if not user.email_verified:
         flash('Por favor, verifique seu email antes de fazer login', 'warning')
         return redirect(url_for('auth'))
     
@@ -259,3 +285,47 @@ if __name__ == '__main__':
     with app.app_context():
         db.create_all()
     app.run(debug=True)
+
+#salvar dados num arquivo json
+def salvar_dados_json(dados, nome, arquivo='dados.json'):
+    try:
+        if hasattr(dados, '__table__'):
+            dados = {col.name: getattr(dados, col.name) for col in dados.__table__.columns}
+            dados['data_cadastro'] = datetime.utcnow().isoformat()
+
+        registro = {
+            'tipo_registro': nome,
+            'data_registro': datetime.utcnow().isoformat(),
+            'dados': {
+                'nome': dados.get('nome'),
+                'email': dados.get('email'),
+                'data_nascimento': dados.get('data_nascimento'),
+                'telefone': dados.get('telefone'),
+                'cep': dados.get('cep'),
+                'cidade': dados.get('cidade'),
+                'estado': dados.get('estado')
+            }
+        }
+
+
+        existing_data = []
+        if os.path.exists(arquivo):
+            try:
+                with open(arquivo, 'r', encoding='utf-8') as f:
+                    existing_data = json.load(f)
+            except json.JSONDecodeError:
+                existing_data = []
+
+        existing_data.append(registro)
+
+
+        with open(arquivo, 'w', encoding='utf-8') as f:
+            json.dump(existing_data, f, ensure_ascii=False, indent=4)
+            
+        print(f'Registro de {nome} salvo em {arquivo}')
+    except Exception as e:
+        print(f'Erro ao salvar dados: {str(e)}')
+
+        if app.debug:
+            import traceback
+            traceback.print_exc()
