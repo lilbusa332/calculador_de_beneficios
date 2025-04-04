@@ -42,7 +42,7 @@ echo "GMAIL_PASSWORD=sua_senha" >> .env</code></pre>
 <h3 style="font-size: 16px; color: #0366d6; margin-top: 16px; margin-bottom: 8px; font-weight: 600;">
 🚀 Execução
 </h3>
-<pre><code># Iniciar aplicação
+<pre><code> Iniciar aplicação
 python app.py
 
 # Acessar no navegador:
