@@ -4,7 +4,7 @@ from datetime import datetime
 class PDF(FPDF):
     def header(self):
         self.set_font('Arial', 'B', 12)
-        self.cell(0, 10, 'Calculadora Fake - Fingindo que sei o que tô fazendo', 0, 1, 'C')
+        self.cell(0, 10, 'Calculadora de Benefícios - Fingindo que sei o que tô fazendo', 0, 1, 'C')
         self.ln(5)
     
     def footer(self):

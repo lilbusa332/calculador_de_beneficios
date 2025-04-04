@@ -71,7 +71,7 @@ class EmailSender:
         token = self.generate_token(user, 'email_verification')
         confirm_url = url_for('confirm_email', token=token, _external=True)
         self.send_email(
-            subject='Confirme seu email - Sistema Calculadora Fake',
+            subject='Confirme seu email - Sistema Calculadora de Benefícios',
             recipient=user.email,
             template='email/confirmation.html',
             provider=provider,
@@ -84,7 +84,7 @@ class EmailSender:
         token = self.generate_token(user, 'password_reset')
         reset_url = url_for('reset_password', token=token, _external=True)
         self.send_email(
-            subject='Redefinição de Senha - Sistema Calculadora Fake',
+            subject='Redefinição de Senha - Sistema Calculadora de Benefícios',
             recipient=user.email,
             template='email/reset.html',
             provider=provider,

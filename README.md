@@ -34,7 +34,7 @@ Linux/Mac: source venv/bin/activate</code></pre>
 </h3>
 <h4>Criar arquivo .env</h4>
 <pre><code>echo "SECRET_KEY=sua_chave" > .env
-echo "DATABASE_URL=sqlite:///calculadora_fake.db" >> .env
+echo "DATABASE_URL=sqlite:///calculadora_ de Benefícios.db" >> .env
 echo "DEFAULT_EMAIL_PROVIDER=gmail" >> .env
 echo "GMAIL_EMAIL=seu_email@gmail.com" >> .env
 echo "GMAIL_PASSWORD=sua_senha" >> .env</code></pre>

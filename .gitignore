@@ -35,7 +35,7 @@ instance/
 # Arquivos do banco de dados
 *.db
 *.sqlite
-calculadora_fake.db
+calculadora_ de Benefícios.db
 
 # Arquivos de IDE
 .idea/
