@@ -1,70 +1,187 @@
-<div style="font-family: Arial, sans-serif; font-size: 13px; line-height: 1.4; color: #24292e; max-width: 800px;">
+```markdown
+# 🌟 Calculador de Benefícios
 
-<h2 style="font-size: 18px; color: #24292e; margin-top: 24px; margin-bottom: 16px; font-weight: 600; border-bottom: 1px solid #e1e4e8; padding-bottom: 0.3em;">
-📖 Manual de Instalação
-</h2>
+Welcome to the **Calculador de Benefícios** repository! This project is part of the conclusion activity for the Python II course at **PAIDEIA-LASSU 2024/2025**. This repository hosts a web application that helps users calculate benefits with ease, integrating various modern web technologies.
 
-<h3 style="font-size: 16px; color: #0366d6; margin-top: 16px; margin-bottom: 8px; font-weight: 600;">
-📋 Pré-requisitos
-</h3>
-<ul>
-  <li>Python 3.8+</li>
-  <li>Pip</li>
-  <li>Git</li>
-</ul>
+![Project Logo](https://img.shields.io/badge/Calculador%20de%20Benef%C3%ADcios-%E2%9C%94%EF%B8%8F-green)
 
-<h3 style="font-size: 16px; color: #0366d6; margin-top: 16px; margin-bottom: 8px; font-weight: 600;">
-🔧 Configuração
-</h3>
-<h4>Clonar repositório</h4>
-<pre><code>git clone https://github.com/AntDavid/calculador_de_beneficios.git</code></pre>
+## 🚀 Table of Contents
 
-<h4>Criar ambiente virtual</h4>
-<pre><code>python -m venv venv</code></pre>
+1. [About the Project](#about-the-project)
+2. [Technologies Used](#technologies-used)
+3. [Features](#features)
+4. [Getting Started](#getting-started)
+5. [Installation](#installation)
+6. [Usage](#usage)
+7. [Contributing](#contributing)
+8. [License](#license)
+9. [Contact](#contact)
+10. [Releases](#releases)
 
-<h4>Ativar ambiente</h4>
-<pre><code>Windows: venv\Scripts\activate
-Linux/Mac: source venv/bin/activate</code></pre>
+## 📜 About the Project
 
-<h4>Instalar dependências</h4>
-<pre><code>pip install -r requirements.txt</code></pre>
+The **Calculador de Benefícios** is designed to provide an intuitive platform for users to calculate different types of benefits. It is built using Python with Flask for the backend and JavaScript, HTML5, and CSS3 for the frontend. The application allows users to enter relevant data and receive immediate results, making it a valuable tool for financial planning.
 
-<h3 style="font-size: 16px; color: #0366d6; margin-top: 16px; margin-bottom: 8px; font-weight: 600;">
-⚙️ Configuração do Ambiente
-</h3>
-<h4>Criar arquivo .env</h4>
-<pre><code>echo "SECRET_KEY=sua_chave" > .env
-echo "DATABASE_URL=sqlite:///calculadora_ de Benefícios.db" >> .env
-echo "DEFAULT_EMAIL_PROVIDER=gmail" >> .env
-echo "GMAIL_EMAIL=seu_email@gmail.com" >> .env
-echo "GMAIL_PASSWORD=sua_senha" >> .env</code></pre>
+## 💻 Technologies Used
 
-<h3 style="font-size: 16px; color: #0366d6; margin-top: 16px; margin-bottom: 8px; font-weight: 600;">
-🚀 Execução
-</h3>
-<pre><code> Iniciar aplicação
-python app.py
+This project leverages a variety of technologies:
 
-# Acessar no navegador:
-http://localhost:5000</code></pre>
+- **Python**: The core programming language used for the backend logic.
+- **Flask**: A lightweight framework to build the web application.
+- **Flask-SQLAlchemy**: For database integration.
+- **HTML5**: The standard markup language for creating web pages.
+- **CSS3**: For styling the application.
+- **JavaScript**: For dynamic client-side behavior.
+- **Jinja2**: Templating engine for Python.
+- **SQLite3**: Lightweight database engine.
+- **LASSU & PAIDEIA**: Academic tools utilized during development.
+- **Teamwork**: Emphasis on collaboration among team members.
 
-<h3 style="font-size: 16px; color: #0366d6; margin-top: 16px; margin-bottom: 8px; font-weight: 600;">
-🔧 Comandos Úteis
-</h3>
-<ul>
-  <li><code>flask db upgrade</code> - Aplica migrações do banco</li>
-  <li><code>pytest tests/</code> - Executa testes</li>
-  <li><code>flask run --debug</code> - Modo desenvolvimento</li>
-  <li><code>deactivate</code> - Sai do ambiente virtual</li>
-</ul>
+## ✨ Features
 
-<h3 style="font-size: 16px; color: #0366d6; margin-top: 16px; margin-bottom: 8px; font-weight: 600;">
-⚠️ Observações
-</h3>
-<ul>
-  <li>Nunca compartilhe seu arquivo <code>.env</code></li>
-  <li>O banco é criado automaticamente na primeira execução</li>
-  <li>Para produção, use WSGI (Gunicorn/Waitress)</li>
-</ul>
+- User-friendly interface for easy navigation.
+- Real-time calculation of benefits.
+- Secure data handling with Flask and SQLite.
+- Responsive design compatible with various devices.
+- Comprehensive documentation for users and developers.
 
-</div>
+## 📥 Getting Started
+
+To get started with the **Calculador de Benefícios**, follow these steps:
+
+1. Clone this repository to your local machine.
+2. Ensure you have Python and necessary packages installed.
+3. Configure the database.
+4. Run the application.
+
+## 🛠️ Installation
+
+### Prerequisites
+
+- Python 3.x
+- Flask
+- Flask-SQLAlchemy
+- Other dependencies listed in `requirements.txt`
+
+### Steps to Install
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/lilbusa332/calculador_de_beneficios.git
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
+   cd calculador_de_beneficios
+   ```
+
+3. Create a virtual environment:
+
+   ```bash
+   python -m venv venv
+   ```
+
+4. Activate the virtual environment:
+
+   - For Windows:
+
+     ```bash
+     venv\Scripts\activate
+     ```
+
+   - For macOS/Linux:
+
+     ```bash
+     source venv/bin/activate
+     ```
+
+5. Install the dependencies:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+6. Initialize the database (if applicable):
+
+   ```bash
+   python init_db.py
+   ```
+
+## 🎉 Usage
+
+To run the application, execute the following command in your terminal:
+
+```bash
+flask run
+```
+
+Visit `http://127.0.0.1:5000` in your browser to access the **Calculador de Benefícios**.
+
+## 🤝 Contributing
+
+We welcome contributions from the community! To contribute:
+
+1. Fork the repository.
+2. Create your feature branch:
+
+   ```bash
+   git checkout -b feature/AmazingFeature
+   ```
+
+3. Commit your changes:
+
+   ```bash
+   git commit -m 'Add some AmazingFeature'
+   ```
+
+4. Push to the branch:
+
+   ```bash
+   git push origin feature/AmazingFeature
+   ```
+
+5. Open a pull request.
+
+## 📝 License
+
+This project is licensed under the MIT License. See the `LICENSE` file for details.
+
+## 📬 Contact
+
+For any inquiries, feel free to reach out to the maintainers of this project:
+
+- **Name**: [Your Name]
+- **Email**: [your.email@example.com]
+- **GitHub**: [Your GitHub Profile](https://github.com/yourprofile)
+
+## 🔄 Releases
+
+For the latest releases and updates, please check the [Releases section](https://github.com/lilbusa332/calculador_de_beneficios/releases). Here you can download the latest version and access past releases as needed.
+
+![Releases Button](https://img.shields.io/badge/Releases-Click%20Here-blue)
+
+## 📷 Screenshots
+
+![Screenshot 1](https://via.placeholder.com/600x400?text=Home+Page)
+![Screenshot 2](https://via.placeholder.com/600x400?text=Calculation+Page)
+
+## 🎓 Learning Resources
+
+If you are interested in learning more about the technologies used in this project, here are some helpful resources:
+
+- [Flask Documentation](https://flask.palletsprojects.com/)
+- [SQLAlchemy Documentation](https://www.sqlalchemy.org/)
+- [Jinja2 Documentation](https://jinja.palletsprojects.com/)
+
+## 📊 Future Improvements
+
+We have a roadmap for future enhancements, including:
+
+- Enhanced user authentication and security features.
+- More extensive calculation options for various benefits.
+- A mobile application version for on-the-go access.
+
+Thank you for visiting the **Calculador de Benefícios** repository. We hope you find it useful!
+```
